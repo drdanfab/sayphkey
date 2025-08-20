@@ -7,68 +7,67 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <style>
   .safety-warning {
-  max-width:900px;
-  margin:20px auto;
-  padding:12px 16px;
-  background:#fff7ed;
-  border:1px solid #f97316;
-  border-radius:6px;
-  font-family:"Courier New", monospace;
-  font-size:14px;
-  color:#7c2d12;
-}
-
+    max-width:900px;
+    margin:20px auto;
+    padding:12px 16px;
+    background:#fff7ed;
+    border:1px solid #f97316;
+    border-radius:6px;
+    font-family:"Courier New", monospace;
+    font-size:14px;
+    color:#7c2d12;
+  }
   .inline-check {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  white-space:nowrap;
-}
-:root{ --line:#111; --green:#22c55e; }
-*{ box-sizing:border-box }
-body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
-.wrap{ max-width:900px; margin:24px auto; padding:20px }
-.card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+  }
+  :root{ --line:#111; --green:#22c55e; }
+  *{ box-sizing:border-box }
+  body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
+  .wrap{ max-width:900px; margin:24px auto; padding:20px }
+  .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
-.header{ display:flex; justify-content:space-between; align-items:center; gap:16px }
-.logo-wrap{ display:flex; align-items:center; gap:12px }
-.logo-wrap svg, .logo-wrap img{ display:block; max-width:280px; height:auto }
+  .header{ display:flex; justify-content:space-between; align-items:center; gap:16px }
+  .logo-wrap{ display:flex; align-items:center; gap:12px }
+  .logo-wrap svg, .logo-wrap img{ display:block; max-width:280px; height:auto }
 
-.net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:"Courier New", Courier, monospace }
+  .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:"Courier New", Courier, monospace }
 
-label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:"Courier New", Courier, monospace }
-input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px "Courier New", Courier, monospace }
-textarea{ min-height:150px; resize:vertical }
+  label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:"Courier New", Courier, monospace }
+  input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px "Courier New", Courier, monospace }
+  textarea{ min-height:150px; resize:vertical }
 
-.mode-row{ display:flex; gap:16px; margin-top:6px; flex-wrap:wrap }
-.mode-btn{ padding:16px 22px; border-radius:12px; border:2px solid #111; background:#fff; color:#111; box-shadow:0 2px 0 rgba(0,0,0,0.08); cursor:pointer }
-.mode-btn.active{ background:var(--green); color:#111; border-color:#14532d }
+  .mode-row{ display:flex; gap:16px; margin-top:6px; flex-wrap:wrap }
+  .mode-btn{ padding:16px 22px; border-radius:12px; border:2px solid #111; background:#fff; color:#111; box-shadow:0 2px 0 rgba(0,0,0,0.08); cursor:pointer }
+  .mode-btn.active{ background:var(--green); color:#111; border-color:#14532d }
 
-.io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
-@media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
+  .io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
+  @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
 
-.actions{ display:flex; align-items:center; gap:12px; margin-top:8px }
-#runBtn{ width:120px; padding:10px 14px; border-radius:12px; border:2px solid var(--line); background:#fff; cursor:pointer; font-weight:700; font-family:"Courier New", Courier, monospace; color:#111 }
-#runBtn:hover{ filter:brightness(0.97) }
+  .actions{ display:flex; align-items:center; gap:12px; margin-top:8px }
+  #runBtn{ width:120px; padding:10px 14px; border-radius:12px; border:2px solid var(--line); background:#fff; cursor:pointer; font-weight:700; font-family:"Courier New", Courier, monospace; color:#111 }
+  #runBtn:hover{ filter:brightness(0.97) }
 
-/* Quick Start (collapsible) */
-.quickstart{ margin:16px auto 0; max-width:900px; }
-.quickstart .toggle-btn{
-  background:var(--green); color:#111; font-family:"Courier New", monospace;
-  font-weight:50; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer;
-  box-shadow:0 1px 0 rgba(0,0,0,.06);
-}
-.qs-content{
-  display:none; margin-top:12px; padding:16px 20px; background:#f9fafb; border:1px solid #ddd; border-radius:8px;
-  font-family:"Courier New", monospace; font-size:14px; line-height:1.5;
-}
-.qs-content h3{ margin:0 0 8px; font-size:18px; color:#111; }
-.qs-content p{ margin:10px 0 6px; }
-.qs-content ol{ margin:6px 0 12px 20px; }
-.qs-content .important{ color:#b91c1c; font-weight:700; }
+  /* Quick Start (collapsible) */
+  .quickstart{ margin:16px auto 0; max-width:900px; }
+  .quickstart .toggle-btn{
+    background:var(--green); color:#111; font-family:"Courier New", monospace;
+    font-weight:700; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer;
+    box-shadow:0 1px 0 rgba(0,0,0,.06);
+  }
+  .qs-content{
+    display:none; margin-top:12px; padding:16px 20px; background:#f9fafb; border:1px solid #ddd; border-radius:8px;
+    font-family:"Courier New", monospace; font-size:14px; line-height:1.5;
+  }
+  .qs-content h3{ margin:0 0 8px; font-size:18px; color:#111; }
+  .qs-content p{ margin:10px 0 6px; }
+  .qs-content ol{ margin:6px 0 12px 20px; }
+  .qs-content .important{ color:#b91c1c; font-weight:700; }
 
-footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px "Courier New", monospace; text-align:center }
-footer .muted{ opacity:.9 }
+  footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px "Courier New", monospace; text-align:center }
+  footer .muted{ opacity:.9 }
 </style>
 </head>
 <body>
@@ -117,10 +116,16 @@ footer .muted{ opacity:.9 }
     <div class="actions">
       <button id="runBtn">Run</button>
       <label class="inline-check">
-  <input type="checkbox" id="autoRunChk" checked> Auto-run
-</label>
+        <input type="checkbox" id="autoRunChk" checked> Auto-run
+      </label>
     </div>
   </div>
+</div>
+
+<!-- Safety warning ABOVE Quick Start -->
+<div class="safety-warning">
+  ⚠️ Always get a fresh copy of Seed Syfr from the official site or GitHub.  
+  Never input decrypted text while connected to the internet.
 </div>
 
 <!-- Collapsible Quick Start Section -->
@@ -167,7 +172,6 @@ footer .muted{ opacity:.9 }
   © 2025 Seed Syfr, All rights reserved
 </footer>
 
-
 <script>
 (function(){
   // Online badges
@@ -203,7 +207,7 @@ footer .muted{ opacity:.9 }
   els.decBtn.addEventListener('click', function(){ setMode('dec'); });
   setMode('enc');
 
-  // Cipher helpers
+  // Helpers
   function dedupeKeyword(k){
     k = (k || "").toUpperCase().replace(/[^A-Z]/g,'');
     var out = "", seen = {};
@@ -283,19 +287,6 @@ footer .muted{ opacity:.9 }
   // Initial compute if auto-run on
   if (els.autoRunChk.checked) scheduleRun();
 })();
-
-
-<div class="quickstart">
-  <button class="toggle-btn" onclick="toggleQuickstart()">Quick Start</button>
-  <div id="quickstartContent" class="qs-content">
-    <!-- instructions here -->
-  </div>
-</div>
-
-   <div class="safety-warning">
-  ⚠️ Always get a fresh copy of Seed Syfr from the official site or GitHub. Sharing isn't always caring.   
-  Never input decypred text while connected to the internet.
-</div>
 
 // Quick Start toggle
 function toggleQuickstart(){
