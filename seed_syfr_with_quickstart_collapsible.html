@@ -6,6 +6,18 @@
 <title>Seed Syfr — Single File (Offline)</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <style>
+  .safety-warning {
+  max-width:900px;
+  margin:20px auto;
+  padding:12px 16px;
+  background:#fff7ed;
+  border:1px solid #f97316;
+  border-radius:6px;
+  font-family:"Courier New", monospace;
+  font-size:14px;
+  color:#7c2d12;
+}
+
   .inline-check {
   display:inline-flex;
   align-items:center;
@@ -271,6 +283,19 @@ footer .muted{ opacity:.9 }
   // Initial compute if auto-run on
   if (els.autoRunChk.checked) scheduleRun();
 })();
+
+  <div class="safety-warning">
+  ⚠️ Always get a fresh copy of Seed Syfr from the official site or GitHub. Sharing isn't always caring.   
+  Never input decypred text while connected to the internet.
+</div>
+
+<div class="quickstart">
+  <button class="toggle-btn" onclick="toggleQuickstart()">Quick Start</button>
+  <div id="quickstartContent" class="qs-content">
+    <!-- instructions here -->
+  </div>
+</div>
+
 
 // Quick Start toggle
 function toggleQuickstart(){
