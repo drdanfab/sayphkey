@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seed Syfr — Single File (Offline)</title>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#22c55e">
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'none';
   img-src 'self' data:;
@@ -310,6 +312,16 @@
   // Initial compute if auto-run on
   if (els.autoRunChk.checked) scheduleRun();
 })();
+ <script>
+  // Robust SW registration that works at root or subpath (e.g., GitHub Pages)
+  (function(){
+    if (!('serviceWorker' in navigator)) return;
+    var scope = location.pathname.replace(/[^/]+$/, ''); // folder of index.html
+    navigator.serviceWorker.register(scope + 'sw.js', { scope: scope })
+      .catch(console.error);
+  })();
+</script>
+ 
 
 // Quick Start toggle
 function toggleQuickstart(){
