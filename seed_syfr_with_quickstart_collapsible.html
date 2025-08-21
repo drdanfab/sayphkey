@@ -312,15 +312,31 @@
   // Initial compute if auto-run on
   if (els.autoRunChk.checked) scheduleRun();
 })();
- <script>
-  // Robust SW registration that works at root or subpath (e.g., GitHub Pages)
+  
+<script>
   (function(){
-    if (!('serviceWorker' in navigator)) return;
-    var scope = location.pathname.replace(/[^/]+$/, ''); // folder of index.html
-    navigator.serviceWorker.register(scope + 'sw.js', { scope: scope })
-      .catch(console.error);
+    var netHeader = document.getElementById('net');
+    var netFooter = document.getElementById('netStatus');
+
+    function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
+
+    // If running from file://, don't trust navigator.onLine
+    var isFile = location.protocol === 'file:';
+    if (isFile) {
+      label('Local file (no network needed)');
+      return; // stop here; SW can't register on file:// anyway
+    }
+
+    function updateNet(){
+      // navigator.onLine can still be flaky on some mobile shells, but fine for localhost/https
+      label(navigator.onLine ? 'Online' : 'Offline');
+    }
+    window.addEventListener('online', updateNet);
+    window.addEventListener('offline', updateNet);
+    updateNet();
   })();
 </script>
+
  
 
 // Quick Start toggle
