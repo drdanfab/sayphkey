@@ -4,8 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seed Syfr — Single File (Offline)</title>
-  <link rel="manifest" href="manifest.json">
+
+<!-- PWA bits -->
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#22c55e">
+
+<!-- CSP: still no outbound network; allow SW + manifest when hosted -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'none';
   img-src 'self' data:;
@@ -17,6 +21,7 @@
   base-uri 'none';
   form-action 'none'
 ">
+
 <style>
   .safety-warning {
     max-width:900px;
@@ -25,16 +30,11 @@
     background:#fff7ed;
     border:1px solid #f97316;
     border-radius:6px;
-    font-family:"Courier New", monospace;
+    font-family:'Courier New', monospace;
     font-size:14px;
     color:#7c2d12;
   }
-  .inline-check {
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    white-space:nowrap;
-  }
+  .inline-check { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
   :root{ --line:#111; --green:#22c55e; }
   *{ box-sizing:border-box }
   body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
@@ -45,10 +45,10 @@
   .logo-wrap{ display:flex; align-items:center; gap:12px }
   .logo-wrap svg, .logo-wrap img{ display:block; max-width:280px; height:auto }
 
-  .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:"Courier New", Courier, monospace }
+  .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:'Courier New', Courier, monospace }
 
-  label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:"Courier New", Courier, monospace }
-  input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px "Courier New", Courier, monospace }
+  label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:'Courier New', Courier, monospace }
+  input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px 'Courier New', Courier, monospace }
   textarea{ min-height:150px; resize:vertical }
 
   .mode-row{ display:flex; gap:16px; margin-top:6px; flex-wrap:wrap }
@@ -59,26 +59,26 @@
   @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
 
   .actions{ display:flex; align-items:center; gap:12px; margin-top:8px }
-  #runBtn{ width:120px; padding:10px 14px; border-radius:12px; border:2px solid var(--line); background:#fff; cursor:pointer; font-weight:700; font-family:"Courier New", Courier, monospace; color:#111 }
+  #runBtn{ width:120px; padding:10px 14px; border-radius:12px; border:2px solid var(--line); background:#fff; cursor:pointer; font-weight:700; font-family:'Courier New', Courier, monospace; color:#111 }
   #runBtn:hover{ filter:brightness(0.97) }
 
   /* Quick Start (collapsible) */
   .quickstart{ margin:16px auto 0; max-width:900px; }
   .quickstart .toggle-btn{
-    background:var(--green); color:#111; font-family:"Courier New", monospace;
-    font-weight:10; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer;
+    background:var(--green); color:#111; font-family:'Courier New', monospace;
+    font-weight:700; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer;
     box-shadow:0 1px 0 rgba(0,0,0,.06);
   }
   .qs-content{
     display:none; margin-top:12px; padding:16px 20px; background:#f9fafb; border:1px solid #ddd; border-radius:8px;
-    font-family:"Courier New", monospace; font-size:14px; line-height:1.5;
+    font-family:'Courier New', monospace; font-size:14px; line-height:1.5;
   }
   .qs-content h3{ margin:0 0 8px; font-size:18px; color:#111; }
   .qs-content p{ margin:10px 0 6px; }
   .qs-content ol{ margin:6px 0 12px 20px; }
   .qs-content .important{ color:#b91c1c; font-weight:700; }
 
-  footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px "Courier New", monospace; text-align:center }
+  footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px 'Courier New', monospace; text-align:center }
   footer .muted{ opacity:.9 }
 </style>
 </head>
@@ -137,13 +137,10 @@
 <!-- Safety warning ABOVE Quick Start -->
 <div class="safety-warning">
   <p style="font-weight:bold; color:red;">
-  SHARING ISN'T ALWAYS CARING: Always get a fresh copy of Seed Syfr from 
-  <a href="https://github.com/drdanfab/seed-syfr" target="_blank" rel="noopener noreferrer">
-    GitHub
-  </a>. 
-  Never input decrypted text while connected to the internet.
-</p>
-
+    SHARING ISN'T ALWAYS CARING: Always get a fresh copy of Seed Syfr from 
+    <a href="https://github.com/drdanfab/seed-syfr" target="_blank" rel="noopener noreferrer">GitHub</a>. 
+    Never input decrypted text while connected to the internet.
+  </p>
 </div>
 
 <!-- Collapsible Quick Start Section -->
@@ -196,16 +193,22 @@
   </div>
 </footer>
 
-
 <script>
 (function(){
-  // Online badges
+  // Online badge (file:// aware so local use looks normal)
   var netHeader = document.getElementById('net');
   var netFooter = document.getElementById('netStatus');
-  function updateNet(){ var s = navigator.onLine ? 'Online' : 'Offline'; if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
-  window.addEventListener('online', updateNet);
-  window.addEventListener('offline', updateNet);
-  updateNet();
+  function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
+
+  var isFile = location.protocol === 'file:';
+  if (isFile) {
+    label('Local file (no network needed)');
+  } else {
+    function updateNet(){ label(navigator.onLine ? 'Online' : 'Offline'); }
+    window.addEventListener('online', updateNet);
+    window.addEventListener('offline', updateNet);
+    updateNet();
+  }
 
   var ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -312,32 +315,6 @@
   // Initial compute if auto-run on
   if (els.autoRunChk.checked) scheduleRun();
 })();
-  
-<script>
-  (function(){
-    var netHeader = document.getElementById('net');
-    var netFooter = document.getElementById('netStatus');
-
-    function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
-
-    // If running from file://, don't trust navigator.onLine
-    var isFile = location.protocol === 'file:';
-    if (isFile) {
-      label('Local file (no network needed)');
-      return; // stop here; SW can't register on file:// anyway
-    }
-
-    function updateNet(){
-      // navigator.onLine can still be flaky on some mobile shells, but fine for localhost/https
-      label(navigator.onLine ? 'Online' : 'Offline');
-    }
-    window.addEventListener('online', updateNet);
-    window.addEventListener('offline', updateNet);
-    updateNet();
-  })();
-</script>
-
- 
 
 // Quick Start toggle
 function toggleQuickstart(){
@@ -346,5 +323,18 @@ function toggleQuickstart(){
   qs.style.display = (qs.style.display === 'block') ? 'none' : 'block';
 }
 </script>
+
+<!-- Service Worker Registration (skips when opened as a local file) -->
+<script>
+(function(){
+  // Skip service worker for local files or insecure contexts
+  if (location.protocol === 'file:' || !('serviceWorker' in navigator) || !window.isSecureContext) return;
+  try {
+    var scope = location.pathname.replace(/[^/]+$/, ''); // folder of index.html
+    navigator.serviceWorker.register(scope + 'sw.js', { scope: scope }).catch(function(){});
+  } catch(e){}
+})();
+</script>
+
 </body>
 </html>
