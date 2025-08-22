@@ -108,15 +108,13 @@
   </footer>
 
   <!-- Service Worker registration (guarded) -->
-  <script>
-    (function () {
-      // Skip SW for local files or insecure contexts
-      if (location.protocol === 'file:' || !('serviceWorker' in navigator) || !window.isSecureContext) return;
-      try {
-        var scope = location.pathname.replace(/[^/]+$/, ''); // folder of index.html (handles /seed-syfr/)
-        navigator.serviceWorker.register(scope + 'sw.js', { scope: scope }).catch(function(){});
-      } catch (e) {}
-    })();
-  </script>
+ <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/seed-syfr/sw.js")
+    .then(() => console.log("SW registered"))
+    .catch(console.error);
+}
+</script>
+
 </body>
 </html>
