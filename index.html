@@ -1,18 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seed Syfr — App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Seed Syfr — Single File (Offline)</title>
 
-  <!-- Icons / PWA (root-absolute paths for GitHub Pages subpath) -->
+  <!-- PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/seed-syfr/icon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/seed-syfr/icon-16x16.png">
   <link rel="apple-touch-icon" href="/seed-syfr/icon-180x180.png">
   <link rel="manifest" href="/seed-syfr/manifest.json">
   <meta name="theme-color" content="#22c55e">
 
-  <!-- CSP: allow SW + manifest; block outbound network -->
+  <!-- CSP: block outbound; allow SW + manifest -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'none';
     img-src 'self' data:;
@@ -24,122 +24,53 @@
     base-uri 'none';
     form-action 'none'
   ">
-</head>
-<body>
 
-  <!-- 🔽🔽🔽 PUT YOUR CIPHER UI HTML HERE (the page with Keyword/Encrypt/Decrypt/etc.) 🔽🔽🔽 -->
+  <style>
+    .safety-warning{ width:50%; margin:0 auto; padding:12px 16px; background:#fff7ed; border:1px solid #f97316; border-radius:6px; font-family:'Courier New', monospace; font-size:14px; color:#7c2d12 }
+    .inline-check{ display:inline-flex; align-items:center; gap:8px; white-space:nowrap }
+    :root{ --line:#111; --green:#22c55e }
+    *{ box-sizing:border-box }
+    body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
+    .wrap{ max-width:900px; margin:24px auto; padding:20px }
+    .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
+    .header{ display:flex; justify-content:space-between; align-items:center; gap:16px }
+    .logo-wrap{ display:flex; align-items:center; gap:12px }
+    .logo-wrap svg{ display:block; max-width:280px; height:auto }
 
-  <!-- Service Worker registration (absolute path; works under /seed-syfr/app/) -->
-  <script>
-  (function(){
-    if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
-    // Register the SW at the repo root
-    navigator.serviceWorker.register('/seed-syfr/sw.js', { scope: '/seed-syfr/' })
-      .catch(function(){});
-  })();
-  </script>
-</body>
-</html>
+    .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:'Courier New', monospace }
 
+    label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:'Courier New', monospace }
+    input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px 'Courier New', monospace }
+    textarea{ min-height:150px; resize:vertical }
 
+    .mode-row{ display:flex; gap:16px; margin-top:6px; flex-wrap:wrap }
+    .mode-btn{ padding:16px 22px; border-radius:12px; border:2px solid #111; background:#fff; color:#111; box-shadow:0 2px 0 rgba(0,0,0,0.08); cursor:pointer }
+    .mode-btn.active{ background:var(--green); color:#111; border-color:#14532d }
 
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Seed Syfr — Single File (Offline)</title>
+    .io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
+    @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
 
-<!-- PWA bits -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#22c55e">
+    /* Quick Start (collapsible) */
+    .quickstart{ margin:16px auto 0; max-width:900px }
+    .quickstart .toggle-btn{ background:var(--green); color:#111; font-family:'Courier New', monospace; font-weight:700; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer; box-shadow:0 1px 0 rgba(0,0,0,.06) }
+    .qs-content{ display:none; margin-top:12px; padding:16px 20px; background:#f9fafb; border:1px solid #ddd; border-radius:8px; font-family:'Courier New', monospace; font-size:14px; line-height:1.5 }
+    .qs-content h3{ margin:0 0 8px; font-size:18px; color:#111 }
+    .qs-content .important{ color:#b91c1c; font-weight:700 }
 
-<!-- CSP: still no outbound network; allow SW + manifest when hosted -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'none';
-  img-src 'self' data:;
-  style-src 'unsafe-inline';
-  script-src 'unsafe-inline';
-  worker-src 'self';
-  manifest-src 'self';
-  connect-src 'none';
-  base-uri 'none';
-  form-action 'none'
-">
-
-<style>
-  .safety-warning {
-  
-    width:50%;
-    margin:0 auto;
-    padding:12px 16px;
-    background:#fff7ed;
-    border:1px solid #f97316;
-    border-radius:6px;
-    font-family:'Courier New', monospace;
-    font-size:14px;
-    color:#7c2d12;
-  }
-  .inline-check { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
-  :root{ --line:#111; --green:#22c55e; }
-  *{ box-sizing:border-box }
-  body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
-  .wrap{ max-width:900px; margin:24px auto; padding:20px }
-  .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
-
-  .header{ display:flex; justify-content:space-between; align-items:center; gap:16px }
-  .logo-wrap{ display:flex; align-items:center; gap:12px }
-  .logo-wrap svg, .logo-wrap img{ display:block; max-width:280px; height:auto }
-
-  .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:'Courier New', Courier, monospace }
-
-  label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:'Courier New', Courier, monospace }
-  input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px 'Courier New', Courier, monospace }
-  textarea{ min-height:150px; resize:vertical }
-
-  .mode-row{ display:flex; gap:16px; margin-top:6px; flex-wrap:wrap }
-  .mode-btn{ padding:16px 22px; border-radius:12px; border:2px solid #111; background:#fff; color:#111; box-shadow:0 2px 0 rgba(0,0,0,0.08); cursor:pointer }
-  .mode-btn.active{ background:var(--green); color:#111; border-color:#14532d }
-
-  .io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
-  @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
-
-  .actions{ display:flex; align-items:center; gap:12px; margin-top:8px }
-  #runBtn{ width:120px; padding:10px 14px; border-radius:12px; border:2px solid var(--line); background:#fff; cursor:pointer; font-weight:700; font-family:'Courier New', Courier, monospace; color:#111 }
-  #runBtn:hover{ filter:brightness(0.97) }
-
-  /* Quick Start (collapsible) */
-  .quickstart{ margin:16px auto 0; max-width:900px; }
-  .quickstart .toggle-btn{
-    background:var(--green); color:#111; font-family:'Courier New', monospace;
-    font-weight:350; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer;
-    box-shadow:0 1px 0 rgba(0,0,0,.06);
-  }
-  .qs-content{
-    display:none; margin-top:12px; padding:16px 20px; background:#f9fafb; border:1px solid #ddd; border-radius:8px;
-    font-family:'Courier New', monospace; font-size:14px; line-height:1.5;
-  }
-  .qs-content h3{ margin:0 0 8px; font-size:18px; color:#111; }
-  .qs-content p{ margin:10px 0 6px; }
-  .qs-content ol{ margin:6px 0 12px 20px; }
-  .qs-content .important{ color:#b91c1c; font-weight:700; }
-
-  footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px 'Courier New', monospace; text-align:center }
-  footer .muted{ opacity:.9 }
-</style>
+    footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px 'Courier New', monospace; text-align:center }
+    footer .muted{ opacity:.9 }
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
     <div class="header">
       <div class="logo-wrap" id="logoSlot">
-        <!-- 🔽 Replace placeholder with your SVG markup 🔽 -->
-        <svg width="220" height="40" viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seed Syfr (placeholder)">
+        <svg width="220" height="40" viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seed Syfr">
           <text x="0" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#111">SEED</text>
           <text x="80" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#22c55e">SYFR</text>
         </svg>
-        <!-- 🔼 Replace placeholder with your SVG markup 🔼 -->
       </div>
       <div id="net" class="net">Offline</div>
     </div>
@@ -171,14 +102,13 @@
         <textarea id="outText" readonly></textarea>
       </div>
     </div>
-
-   
+  </div>
+</div>
 
 <!-- Safety warning ABOVE Quick Start -->
 <div align="center" class="safety-warning">
-  <p style="font-weight:10; color:red;">
-    ALWAYS DISCONNECT FROM THE INTERNET WHEN ENTERING SEED PHRASES, PASSWORDS, or KEYWORDS. 
-
+  <p style="font-weight:700; color:red;">
+    ALWAYS DISCONNECT FROM THE INTERNET WHEN ENTERING SEED PHRASES, PASSWORDS, OR KEYWORDS.
   </p>
 </div>
 
@@ -187,73 +117,26 @@
   <button class="toggle-btn" onclick="toggleQuickstart()">Quick Start Steps</button>
   <div id="quickstartContent" class="qs-content">
     <h3>Quick Start Steps</h3>
-    <p><strong>Instructions to Encrypt Your Seed Phrase, Passwords, Passphrases...</strong></p>
     <ol>
-      <li>Turn off web connection (The online indicator will switch to offline).</li>
-      <li>Choose Encrypt</li>
-      <li>Choose your Keyword</li>
-      <li>Choose the position in the alphabet to add the keyword (default is 1)</li>
-      <li>Enter the seed words in the proper order (if required) in the Input Box</li>
-      <li>Run or It will run automatically if Auto-Run is checked</li>
+      <li>Open this page once while online (to cache).</li>
+      <li>Add to Home Screen (Safari iOS / Chrome Android).</li>
+      <li>Disconnect from the internet.</li>
+      <li>Choose Encrypt or Decrypt, set Keyword &amp; Position, type in the Input box — output updates automatically.</li>
     </ol>
-
-    <p><strong>To verify accuracy:</strong></p>
-    <ol>
-      <li>Click Decrypt</li>
-      <li>Copy the encrypted words in the Output Box</li>
-      <li>Paste them into the Input Box</li>
-      <li>Run or Auto-run</li>
-      <li>The original decrypted text should be in the Output Box.</li>
-    </ol>
-
-    <p class="important">SUPER IMPORTANT: Erase any decrypted text prior to reconnecting to the internet.</p>
-
-    <p><strong>Storing Your Encrypted Seed Phrases and Passwords:</strong></p>
-    <ol>
-      <li>Store your encrypted information in the proper order (if required) in any manner that suits your level of security.</li>
-      <li>For example, you can keep them together or separate them into different places, move characters around, add numbers in place of letters, etc. Just keep track of your method as you will need to revert to the original encrypted text in order to decrypt and decipher.</li>
-    </ol>
-
-    <p class="important">SUPER IMPORTANT: Ensure that you don't store the keyphrase with the encrypted information.</p>
+    <p class="important">Erase decrypted text before reconnecting to the internet.</p>
   </div>
 </div>
 
 <footer>
   Seed Syfr · v0.1.0 · <span id="netStatus">Offline</span><br>
-  Created by Dr Daniel Faber (<a href="mailto:drdanfab@gmail.com">drdanfab@gmail.com</a>)<br>
-  <a href="https://www.linkedin.com/in/drdanielfaber/" target="_blank">LinkedIn</a> · 
+  Created by Dr Daniel Faber (<a href="mailto:drdanfab@gmail.com">drdanfab@gmail.com</a>) ·
   <a href="https://github.com/drdanfab/seed-syfr" target="_blank">View on GitHub</a><br>
-  © 2025 Seed Syfr, All rights reserved
-  <div class="muted" style="margin-top:10px; font-size:11px; line-height:1.4;">
-    Seed Syfr is provided as an open-source tool for personal use. 
-    No guarantees or warranties are expressed or implied. 
-    Users are solely responsible for securely storing and backing up their seed phrases, passwords, and other sensitive information. 
-    The developers assume no liability for any loss, damage, or unauthorized access resulting from use or misuse of the software.
-  </div>
+  © 2025 Seed Syfr. No warranties. Use at your own risk.
 </footer>
 
 <script>
 (function(){
   // Online badge (file:// aware so local use looks normal)
-  var netHeader = document.getElementById('net');
-  var netFooter = document.getElementById('netStatus');
-  function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
-
-  var isFile = location.protocol === 'file:';
-  if (isFile) {
-    label('Local file (no network needed)');
-  } else {
-    function updateNet(){ label(navigator.onLine ? 'Online' : 'Offline'); }
-    window.addEventListener('online', updateNet);
-    window.addEventListener('offline', updateNet);
-    updateNet();
-  }
-
-  var ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  <script>
-(function(){
-  // Online badge (file:// aware)
   var netHeader = document.getElementById('net');
   var netFooter = document.getElementById('netStatus');
   function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
@@ -349,7 +232,7 @@
   var t;
   function scheduleRun(){ clearTimeout(t); t = setTimeout(run, 120); }
 
-  // Wire inputs to auto-run (no checkbox gate)
+  // Wire inputs to auto-run
   ['keyup','change','input'].forEach(function(evt){
     els.inText.addEventListener(evt, scheduleRun);
     els.keyword.addEventListener(evt, scheduleRun);
@@ -359,6 +242,7 @@
   // Initial compute
   scheduleRun();
 })();
+
 function toggleQuickstart(){
   var qs = document.getElementById('quickstartContent');
   if (!qs) return;
@@ -366,6 +250,12 @@ function toggleQuickstart(){
 }
 </script>
 
-
+<!-- Service Worker registration (root of repo path) -->
+<script>
+(function(){
+  if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
+  navigator.serviceWorker.register('/seed-syfr/sw.js', { scope: '/seed-syfr/' }).catch(function(){});
+})();
+</script>
 </body>
 </html>
