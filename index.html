@@ -251,24 +251,41 @@
 
   var ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+  <script>
+(function(){
+  // Online badge (file:// aware)
+  var netHeader = document.getElementById('net');
+  var netFooter = document.getElementById('netStatus');
+  function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
+
+  var isFile = location.protocol === 'file:';
+  if (isFile) {
+    label('Local file (no network needed)');
+  } else {
+    function updateNet(){ label(navigator.onLine ? 'Online' : 'Offline'); }
+    window.addEventListener('online', updateNet);
+    window.addEventListener('offline', updateNet);
+    updateNet();
+  }
+
+  var ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
   var els = {
     keyword: document.getElementById('keyword'),
     pos: document.getElementById('pos'),
     inText: document.getElementById('inText'),
     outText: document.getElementById('outText'),
-    runBtn: document.getElementById('runBtn'),
     encBtn: document.getElementById('encBtn'),
-    decBtn: document.getElementById('decBtn'),
-    autoRunChk: document.getElementById('autoRunChk')
+    decBtn: document.getElementById('decBtn')
   };
 
-  // Mode toggle
+  // Mode toggle (always auto-run)
   var currentMode = 'enc';
   function setMode(mode){
     currentMode = mode;
     els.encBtn.classList.toggle('active', mode === 'enc');
     els.decBtn.classList.toggle('active', mode === 'dec');
-    if (els.autoRunChk.checked) scheduleRun();
+    scheduleRun(); // auto-run on mode change
   }
   els.encBtn.addEventListener('click', function(){ setMode('enc'); });
   els.decBtn.addEventListener('click', function(){ setMode('dec'); });
@@ -330,32 +347,18 @@
 
   // Debounce for auto-run
   var t;
-  function scheduleRun(){ clearTimeout(t); t = setTimeout(run, 180); }
+  function scheduleRun(){ clearTimeout(t); t = setTimeout(run, 120); }
 
-  // Persist auto-run toggle
-  var autoKey = 'seedSyfr:autoRun';
-  var saved = null; try { saved = localStorage.getItem(autoKey); } catch(e){}
-  if (saved !== null) els.autoRunChk.checked = (saved === '1');
-  els.autoRunChk.addEventListener('change', function(){
-    try { localStorage.setItem(autoKey, els.autoRunChk.checked ? '1' : '0'); } catch(e){}
-    if (els.autoRunChk.checked) scheduleRun();
+  // Wire inputs to auto-run (no checkbox gate)
+  ['keyup','change','input'].forEach(function(evt){
+    els.inText.addEventListener(evt, scheduleRun);
+    els.keyword.addEventListener(evt, scheduleRun);
+    els.pos.addEventListener(evt, scheduleRun);
   });
 
-  // Wire inputs
-  ['keyup','change'].forEach(function(evt){
-    els.inText.addEventListener(evt, function(){ if (els.autoRunChk.checked) scheduleRun(); });
-    els.keyword.addEventListener(evt, function(){ if (els.autoRunChk.checked) scheduleRun(); });
-    els.pos.addEventListener(evt, function(){ if (els.autoRunChk.checked) scheduleRun(); });
-  });
-
-  // Run button
-  els.runBtn.addEventListener('click', run);
-
-  // Initial compute if auto-run on
-  if (els.autoRunChk.checked) scheduleRun();
+  // Initial compute
+  scheduleRun();
 })();
-
-// Quick Start toggle
 function toggleQuickstart(){
   var qs = document.getElementById('quickstartContent');
   if (!qs) return;
@@ -363,17 +366,6 @@ function toggleQuickstart(){
 }
 </script>
 
-<!-- Service Worker Registration (skips when opened as a local file) -->
-<script>
-(function(){
-  // Skip service worker for local files or insecure contexts
-  if (location.protocol === 'file:' || !('serviceWorker' in navigator) || !window.isSecureContext) return;
-  try {
-    var scope = location.pathname.replace(/[^/]+$/, ''); // folder of index.html
-    navigator.serviceWorker.register(scope + 'sw.js', { scope: scope }).catch(function(){});
-  } catch(e){}
-})();
-</script>
 
 </body>
 </html>
