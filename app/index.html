@@ -1,3 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seed Syfr — App</title>
+
+  <!-- Icons / PWA (root-absolute paths for GitHub Pages subpath) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/seed-syfr/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/seed-syfr/icon-16x16.png">
+  <link rel="apple-touch-icon" href="/seed-syfr/icon-180x180.png">
+  <link rel="manifest" href="/seed-syfr/manifest.json">
+  <meta name="theme-color" content="#22c55e">
+
+  <!-- CSP: allow SW + manifest; block outbound network -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'none';
+    img-src 'self' data:;
+    style-src 'unsafe-inline';
+    script-src 'unsafe-inline';
+    worker-src 'self';
+    manifest-src 'self';
+    connect-src 'none';
+    base-uri 'none';
+    form-action 'none'
+  ">
+</head>
+<body>
+
+  <!-- 🔽🔽🔽 PUT YOUR CIPHER UI HTML HERE (the page with Keyword/Encrypt/Decrypt/etc.) 🔽🔽🔽 -->
+
+
+  <!-- Service Worker registration (absolute path; works under /seed-syfr/app/) -->
+  <script>
+  (function(){
+    if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
+    // Register the SW at the repo root
+    navigator.serviceWorker.register('/seed-syfr/sw.js', { scope: '/seed-syfr/' })
+      .catch(function(){});
+  })();
+  </script>
+</body>
+</html>
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
