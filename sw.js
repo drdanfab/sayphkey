@@ -1,13 +1,15 @@
-// sw.js — Seed Syfr PWA (cache-first for GitHub Pages subpath)
-const CACHE_NAME = 'seed-syfr-v3';
+// sw.js — Seed Syfr PWA (cache‑first for GitHub Pages subpath + /app/)
+const CACHE_NAME = 'seed-syfr-v5';
 
-// Build absolute URLs for assets relative to this sw.js location
-const ROOT = new URL('./', self.location).pathname; // e.g. "/seed-syfr/"
-const ABS = (p) => new URL(p, self.location).toString();
+// Resolve absolute URLs under this repo (e.g. "/seed-syfr/")
+const ROOT = new URL('./', self.location).pathname;         // "/seed-syfr/"
+const START = ROOT + 'app/index.html';                      // the cipher app entry
+const ABS   = (p) => new URL(p, self.location).toString();
 
 const ASSETS = [
-  ROOT,                // "/seed-syfr/" (directory index)
-  ROOT + 'index.html',
+  ROOT,                          // "/seed-syfr/" directory index
+  ROOT + 'index.html',           // landing page
+  START,                         // cipher app page
   ROOT + 'manifest.json',
   ROOT + 'icon-16x16.png',
   ROOT + 'icon-32x32.png',
@@ -18,35 +20,34 @@ const ASSETS = [
 
 // Install: pre-cache everything
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(ASSETS)));
+  event.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
   self.skipWaiting();
 });
 
 // Activate: clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((k) => (k === CACHE_NAME ? null : caches.delete(k))))
+    caches.keys().then(keys =>
+      Promise.all(keys.map(k => (k === CACHE_NAME ? null : caches.delete(k))))
     )
   );
   self.clients.claim();
 });
 
-// Fetch: cache-first; for navigation requests fall back to cached index.html
+// Fetch: cache‑first; for navigations serve the app entry from cache
 self.addEventListener('fetch', (event) => {
   const req = event.request;
 
-  // If it's a navigation (e.g., app start), prefer cached index.html
+  // App starts / navigations → serve cached app entry
   if (req.mode === 'navigate') {
     event.respondWith(
-      caches.match(ABS(ROOT + 'index.html')).then((res) => res || fetch(req))
+      caches.match(ABS(START)).then(res => res || fetch(req))
     );
     return;
   }
 
-  // Otherwise: cache-first with ignoreSearch to tolerate "?v=" etc.
+  // All other requests: cache-first (ignoreSearch to tolerate "?v=...")
   event.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((res) => res || fetch(req))
+    caches.match(req, { ignoreSearch: true }).then(res => res || fetch(req))
   );
 });
-
