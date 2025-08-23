@@ -32,30 +32,49 @@
     .wrap{ max-width:900px; margin:24px auto; padding:20px }
     .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
-    .header {
-  display: flex;
-  justify-content: center; /* center content */
-  align-items: center;
-  position: relative;       /* allows absolute positioning of net pill */
-  gap: 16px;
-  flex-wrap: wrap;
+  /* Center the logo row */
+.header{
+  display:flex;
+  justify-content:center;     /* center the logo */
+  align-items:center;
+  position:relative;          /* so the pill can pin to the right */
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:6px;          /* tiny breathing room under the logo row */
 }
 
-.logo-wrap {
+/* Wordmark */
+.logo-wrap{
   font-family: Arial, sans-serif;
-  font-size: 28px;
-  font-weight: 600;
-  text-align: center;
+  font-size:28px;
+  font-weight:600;
+  text-align:center;
+}
+.logo-sayph{ color: var(--green); }
+.logo-key{   color:#111; }
+
+/* Online/Offline pill (keep it green) */
+.net{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:12px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #2e6f2e;
+  background:#2e6f2e;
+  color:#fff;
+  font-family:"Courier New", monospace;
 }
 
-.logo-sayph { color: var(--green); }
-.logo-key   { color: #111; }
-
-.net {
-  position: absolute;
-  right: 0;        /* pin to right edge */
-  top: 50%;
-  transform: translateY(-50%);
+/* Tagline (center + spacing before Step 1) */
+.tagline{
+  text-align:center;
+  margin:10px 0 18px;         /* <— adds space before Step 1 */
+  font-style:italic;
+  font-size:14px;
+  color:#444;
 }
 
     label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:'Courier New', monospace }
