@@ -12,7 +12,7 @@
   <link rel="manifest" href="/sayphkey/manifest.json">
   <meta name="theme-color" content="#22c55e">
 
-  <!-- CSP: block outbound; allow SW + manifest -->
+  <!-- CSP -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'none';
     img-src 'self' data:;
@@ -33,10 +33,27 @@
     .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
     .header{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap }
-    .logo-wrap{ display:flex; align-items:center; gap:12px }
-    .logo-wrap svg{ display:block; max-width:280px; height:auto }
 
-    .tagline { font-style: italic; font-size: 14px; color: #444; text-align:center; margin: 6px auto 0; max-width: 680px }
+    /* LOGO fix */
+    .logo-wrap {
+      display: inline-block;
+      margin: 0 auto;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .logo-sayph { color: var(--green); }
+    .logo-key   { color: #111; }
+
+    .tagline { 
+      font-style: italic; 
+      font-size: 14px; 
+      color: #444; 
+      text-align:center; 
+      margin: 6px auto 24px;  /* added bottom spacing */
+      max-width: 680px 
+    }
 
     .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:'Courier New', monospace }
 
@@ -44,35 +61,32 @@
     input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px 'Courier New', monospace }
     textarea{ min-height:150px; resize:vertical }
 
-   .mode-row {
-  display: flex;
-  gap: 16px;
-  margin-top: 6px;
-  flex-wrap: wrap;
-  justify-content: center; /* center buttons */
-}
+    .mode-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .mode-btn {
+      padding: 16px 22px;
+      border-radius: 12px;
+      border: 2px solid #111;
+      background: #fff;
+      color: #111;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+      cursor: pointer;
+      font-weight: 600;
+      font-family: "Courier New", Courier, monospace;
+      min-width: 120px;
+      text-align: center;
+    }
+    .mode-btn.active {
+      background: var(--green);
+      color: #111;
+      border-color: #14532d;
+    }
 
-.mode-btn {
-  padding: 16px 22px;
-  border-radius: 12px;
-  border: 2px solid #111;
-  background: #fff;
-  color: #111;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.08);
-  cursor: pointer;
-  font-weight: 600;
-  font-family: "Courier New", Courier, monospace;
-  min-width: 120px;           /* keeps size consistent */
-  text-align: center;
-}
-
-.mode-btn.active {
-  background: var(--green);   /* uses your Encrypt button green */
-  color: #111;
-  border-color: #14532d;
-}
-
-}
     .io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
     @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
 
@@ -87,21 +101,6 @@
 
     footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px 'Courier New', monospace; text-align:center }
     footer .muted{ opacity:.9 }
-
-     .logo-wrap {
-  font-family: 'Inter', Arial, sans-serif; /* Canva Sans → Inter fallback */
-  font-size: 28px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.logo-sayph {
-  color: var(--green);  /* uses the same green as the Encrypt button */
-}
-
-.logo-key {
-  color: #111;          /* black */
-}
   </style>
 </head>
 <body>
@@ -109,29 +108,28 @@
   <div class="card">
     <div class="header">
       <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
-  <span class="logo-sayph">Sayph</span><span class="logo-key">Key</span>
-</div>
+        <span class="logo-sayph">Sayph</span><span class="logo-key">Key</span>
+      </div>
       <div id="net" class="net">Offline</div>
     </div>
-<div class="tagline">
-      Simple, Safe, Stress‑free Solution for Securing Sensitive Information
 
-      
+    <div class="tagline">
+      Simple, Safe, Stress-free Solution for Securing Sensitive Information
     </div>
 
-    
     <div class="center-line">
-      Step 1: DISCONNECT INTERNET connection- GO OFFLINE 
-    </div>
-    
-    <div class="center-line">
-    <label>Step 2: Choose the Mode</label>
-    <div class="mode-row">
-      <button id="encBtn" class="mode-btn">Encrypt</button>
-      <button id="decBtn" class="mode-btn">Decrypt</button>
+      Step 1: DISCONNECT INTERNET connection – GO OFFLINE
     </div>
 
-    <!-- Keyword only -->
+    <div class="center-line">
+      <label>Step 2: Choose the Mode</label>
+      <div class="mode-row">
+        <button id="encBtn" class="mode-btn">Encrypt</button>
+        <button id="decBtn" class="mode-btn">Decrypt</button>
+      </div>
+    </div>
+
+    <!-- Keyword -->
     <div style="margin-top:10px">
       <label for="keyword">Step 3: Create a Keyword</label>
       <input id="keyword" type="text" placeholder="Create a keyword (A–Z only, no spaces/punctuation, 4+ letters recommended)">
@@ -183,7 +181,6 @@
 
 <script>
 (function(){
-  // Online badge (file:// aware so local use looks normal)
   var netHeader = document.getElementById('net');
   var netFooter = document.getElementById('netStatus');
   function label(s){ if(netHeader) netHeader.textContent = s; if(netFooter) netFooter.textContent = s; }
@@ -208,19 +205,17 @@
     decBtn: document.getElementById('decBtn')
   };
 
-  // Mode toggle (always auto-run)
   var currentMode = 'enc';
   function setMode(mode){
     currentMode = mode;
     els.encBtn.classList.toggle('active', mode === 'enc');
     els.decBtn.classList.toggle('active', mode === 'dec');
-    scheduleRun(); // auto-run on mode change
+    scheduleRun();
   }
   els.encBtn.addEventListener('click', function(){ setMode('enc'); });
   els.decBtn.addEventListener('click', function(){ setMode('dec'); });
   setMode('enc');
 
-  // Helpers
   function dedupeKeyword(k){
     k = (k || "").toUpperCase().replace(/[^A-Z]/g,'');
     var out = "", seen = {};
@@ -228,7 +223,6 @@
     return out;
   }
   function buildAlphabet(keyword){
-    // Always insert keyword at the start
     var key = dedupeKeyword(keyword);
     var used = {};
     var alpha = "";
@@ -267,17 +261,14 @@
     els.outText.value = out;
   }
 
-  // Debounce for auto-run
   var t;
   function scheduleRun(){ clearTimeout(t); t = setTimeout(run, 120); }
 
-  // Wire inputs to auto-run
   ['keyup','change','input'].forEach(function(evt){
     els.inText.addEventListener(evt, scheduleRun);
     els.keyword.addEventListener(evt, scheduleRun);
   });
 
-  // Initial compute
   scheduleRun();
 })();
 
@@ -288,7 +279,7 @@ function toggleQuickstart(){
 }
 </script>
 
-<!-- Service Worker registration (root of new repo path) -->
+<!-- Service Worker registration -->
 <script>
 (function(){
   if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
