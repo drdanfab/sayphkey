@@ -26,6 +26,21 @@
   ">
 
   <style>
+
+    .logo-wrap {
+  font-family: 'Inter', Arial, sans-serif; /* Canva Sans → Inter fallback */
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.logo-sayph {
+  color: #00bf63; /* brand green (same as encrypt button) */
+}
+
+.logo-key {
+  color: #111; /* black */
+}
+
     :root{ --line:#111; --green:#22c55e }
     *{ box-sizing:border-box }
     body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
@@ -65,19 +80,10 @@
   </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
-    <div class="header">
-      <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
-        <!-- Simple inline wordmark; swap for a logo image anytime -->
-        <svg width="240" height="40" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SayphKey">
-          <text x="0" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="500" fill="#00bf63">Sayph</text>
-          <text x="95" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="500" fill="#111">Key</text>
-        </svg>
-      </div>
-      <div id="net" class="net">Offline</div>
-    </div>
 
+  <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
+  <span class="logo-sayph">Sayph</span><span class="logo-key">Key</span>
+</div>
     <div class="tagline">
       Simple, Safe, Stress‑free Solution for Securing Sensitive Information
     </div>
