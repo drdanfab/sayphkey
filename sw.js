@@ -1,13 +1,13 @@
-// sw.js — Seed Syfr PWA (root-only app, hybrid: network-first for index.html)
-const CACHE_NAME = 'seed-syfr-v8'; // bump this when you want to force updates
+// sw.js — SayphKey PWA (root-only app, hybrid: network-first for index.html)
+const CACHE_NAME = 'sayphkey-v1'; // bump to force updates
 
-const ROOT  = new URL('./', self.location).pathname;   // e.g. "/seed-syfr/"
+const ROOT  = new URL('./', self.location).pathname;   // now "/sayphkey/"
 const ABS   = (p) => new URL(p, self.location).toString();
 const START = ROOT + 'index.html';
 
 const ASSETS = [
-  ROOT,                  // "/seed-syfr/" directory index
-  START,                 // app entry (root index)
+  ROOT,                  // "/sayphkey/" directory index
+  START,                 // app entry
   ROOT + 'manifest.json',
   ROOT + 'icon-16x16.png',
   ROOT + 'icon-32x32.png',
@@ -40,27 +40,21 @@ self.addEventListener('fetch', (e) => {
 
   if (req.mode === 'navigate') {
     e.respondWith((async () => {
-      // Try network first (only if we have network)
       try {
         const netRes = await fetch(req, { cache: 'no-store' });
-        // Stash a fresh copy for offline use next time
         const cache = await caches.open(CACHE_NAME);
         cache.put(ABS(START), netRes.clone());
         return netRes;
       } catch (err) {
-        // Offline (or fetch failed): serve cached app shell
         const cached = await caches.match(ABS(START));
         if (cached) return cached;
-        // As a last resort, try default fetch (may fail offline)
         return fetch(req);
       }
     })());
     return;
   }
 
-  // Non-navigation requests → cache-first
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(res => res || fetch(req))
   );
 });
-
