@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Seed Syfr</title>
+  <title>SayphKey</title>
 
-  <!-- PWA -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/seed-syfr/icon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/seed-syfr/icon-16x16.png">
-  <link rel="apple-touch-icon" href="/seed-syfr/icon-180x180.png">
-  <link rel="manifest" href="/seed-syfr/manifest.json">
+  <!-- PWA assets under /sayphkey/ -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/sayphkey/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/sayphkey/icon-16x16.png">
+  <link rel="apple-touch-icon" href="/sayphkey/icon-180x180.png">
+  <link rel="manifest" href="/sayphkey/manifest.json">
   <meta name="theme-color" content="#22c55e">
 
   <!-- CSP: block outbound; allow SW + manifest -->
@@ -26,42 +26,17 @@
   ">
 
   <style>
-
-    .tagline {
-  font-style: italic;
-  font-size: 14px;
-  color: #444;
-  text-align: center: 12px;
-  max-width: 400px;
-}
-
-    .center-line {
-  text-align: center;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: bold;
-  color: ##5b6d55;
-  font-family: 'Courier New', monospace;
-}
-
-    .step-label {
-  margin-top: 6px;
-  font-size: 13px;
-  font-weight: bold;
-  color: #333;
-  font-family: 'Courier New', monospace;
-}
-
-    .safety-warning{ width:50%; margin:0 auto; padding:12px 16px; background:#fff7ed; border:1px solid #f97316; border-radius:6px; font-family:'Courier New', monospace; font-size:14px; color:#7c2d12 }
     :root{ --line:#111; --green:#22c55e }
     *{ box-sizing:border-box }
     body{ margin:0; background:#F8FAFC; color:#111; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif }
     .wrap{ max-width:900px; margin:24px auto; padding:20px }
     .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
-    .header{ display:flex; justify-content:space-between; align-items:center; gap:16px }
+    .header{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap }
     .logo-wrap{ display:flex; align-items:center; gap:12px }
     .logo-wrap svg{ display:block; max-width:280px; height:auto }
+
+    .tagline { font-style: italic; font-size: 14px; color: #444; text-align:center; margin: 6px auto 0; max-width: 680px }
 
     .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:'Courier New', monospace }
 
@@ -75,6 +50,8 @@
 
     .io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
     @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
+
+    .center-line { text-align: center; margin-top: 8px; font-size: 14px; font-weight: bold; color: #5b6d55; font-family: 'Courier New', monospace }
 
     /* Quick Start (collapsible) */
     .quickstart{ margin:16px auto 0; max-width:900px }
@@ -91,17 +68,19 @@
 <div class="wrap">
   <div class="card">
     <div class="header">
-      <div align="center"class="logo-wrap" id="logoSlot">
-        <svg width="220" height="40" viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seed Syfr">
-          <text x="0" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#111">SEED</text>
-          <text x="80" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#22c55e">SYFR</text>
+      <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
+        <!-- Simple inline wordmark; swap for a logo image anytime -->
+        <svg width="240" height="40" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SayphKey">
+          <text x="0" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#111">SAYPH</text>
+          <text x="95" y="28" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#22c55e">KEY</text>
         </svg>
       </div>
       <div id="net" class="net">Offline</div>
     </div>
+
     <div class="tagline">
-  Simple, Safe, Stress-free Solution for Securing Sensitive Information
-</div>
+      Simple, Safe, Stress‑free Solution for Securing Sensitive Information
+    </div>
 
     <label>Step 2: Choose the Mode</label>
     <div class="mode-row">
@@ -111,28 +90,29 @@
 
     <!-- Keyword only -->
     <div style="margin-top:10px">
-      <label for="keyword">Step 3: Create A Keyword</label>
-      <input id="keyword" type="text" placeholder="Create A keyword (No spaces,no punctuation,ideally more than 3-4 letters A-Z)">
+      <label for="keyword">Step 3: Create a Keyword</label>
+      <input id="keyword" type="text" placeholder="Create a keyword (A–Z only, no spaces/punctuation, 4+ letters recommended)">
     </div>
 
     <div class="io-grid">
       <div>
         <label for="inText">Step 4: Input Text</label>
-        <textarea id="inText" placeholder="Enter Seed Phrases,Passwords, etc to be Encrypted or Decrypted (in required order)"></textarea>
+        <textarea id="inText" placeholder="Enter seed phrases, passwords, etc. to be encrypted or decrypted (in required order)"></textarea>
       </div>
       <div>
-        <label for="outText">Step 5: Encrypted or Decrypted Text Outout</label>
-       <textarea id="outText" readonly placeholder="Copy Encrypted Information To Store Elsewhere"></textarea>
+        <label for="outText">Step 5: Encrypted or Decrypted Output</label>
+        <textarea id="outText" readonly placeholder="Copy encrypted information to store elsewhere"></textarea>
       </div>
     </div>
-  <div class="center-line">
-  Step 6: DELETE all seed phrases, passwords, etc. BEFORE RECONNECTING to the internet.
-</div>
+
     <div class="center-line">
-  Step 7: Secure your encrypted information and keyword SEPARATELY
+      Step 6: DELETE all seed phrases, passwords, etc. BEFORE RECONNECTING to the internet.
+    </div>
+    <div class="center-line">
+      Step 7: Secure your encrypted information and keyword SEPARATELY.
+    </div>
+  </div>
 </div>
-
-
 
 <!-- Collapsible Quick Start Section -->
 <div align="center" class="quickstart">
@@ -150,12 +130,12 @@
 </div>
 
 <footer>
-  Seed Syfr · v0.1.0 · <span id="netStatus">Offline</span><br>
-  Created by Dr Daniel Faber 
-  <a href="https://www.linkedin.com/in/drdanielfaber/" target="_blank">LinkedIn</a><br> 
+  SayphKey · v0.1.0 · <span id="netStatus">Offline</span><br>
+  Created by Dr Daniel Faber —
+  <a href="https://www.linkedin.com/in/drdanielfaber/" target="_blank">LinkedIn</a> · 
   <a href="mailto:drdanfab@gmail.com">EMAIL</a> · 
-  <a href="https://github.com/drdanfab/seed-syfr" target="_blank">View on GitHub</a><br>
-  © 2025 Seed Syfr. All Rights Reserved. No warranties. Use at your own risk.
+  <a href="https://github.com/drdanfab/sayphkey" target="_blank">View on GitHub</a><br>
+  © 2025 SayphKey. All Rights Reserved. No warranties. Use at your own risk.
 </footer>
 
 <script>
@@ -235,7 +215,7 @@
   }
 
   function run(){
-    var alpha = buildAlphabet(els.keyword.value); // no pos arg
+    var alpha = buildAlphabet(els.keyword.value);
     var maps = makeMaps(alpha);
     var txt = els.inText.value || "";
     var out = "";
@@ -265,13 +245,12 @@ function toggleQuickstart(){
 }
 </script>
 
-<!-- Service Worker registration (root of repo path) -->
+<!-- Service Worker registration (root of new repo path) -->
 <script>
 (function(){
   if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
-  navigator.serviceWorker.register('/seed-syfr/sw.js', { scope: '/seed-syfr/' }).catch(function(){});
+  navigator.serviceWorker.register('/sayphkey/sw.js', { scope: '/sayphkey/' }).catch(function(){});
 })();
 </script>
 </body>
 </html>
-
