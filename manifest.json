@@ -1,8 +1,8 @@
 {
-  "name": "Seed Syfr",
-  "short_name": "SeedSyfr",
-  "start_url": "./",
-  "scope": "/seed-syfr/",
+  "name": "SayphKey",
+  "short_name": "SayphKey",
+  "start_url": "/sayphkey/",
+  "scope": "/sayphkey/",
   "display": "standalone",
   "background_color": "#0b0f14",
   "theme_color": "#22c55e",
