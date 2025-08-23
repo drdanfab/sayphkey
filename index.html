@@ -32,30 +32,31 @@
     .wrap{ max-width:900px; margin:24px auto; padding:20px }
     .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
-    .header{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap }
+    .header {
+  display: flex;
+  justify-content: center; /* center content */
+  align-items: center;
+  position: relative;       /* allows absolute positioning of net pill */
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-    /* LOGO fix */
-    .logo-wrap {
-      display: inline-block;
-      margin: 0 auto;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      font-size: 28px;
-      font-weight: 600;
-    }
-    .logo-sayph { color: var(--green); }
-    .logo-key   { color: #111; }
+.logo-wrap {
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+}
 
-    .tagline { 
-      font-style: italic; 
-      font-size: 14px; 
-      color: #444; 
-      text-align:center; 
-      margin: 6px auto 24px;  /* added bottom spacing */
-      max-width: 680px 
-    }
+.logo-sayph { color: var(--green); }
+.logo-key   { color: #111; }
 
-    .net{ font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid #2e6f2e; background:#2e6f2e; color:#fff; font-family:'Courier New', monospace }
+.net {
+  position: absolute;
+  right: 0;        /* pin to right edge */
+  top: 50%;
+  transform: translateY(-50%);
+}
 
     label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:'Courier New', monospace }
     input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px 'Courier New', monospace }
