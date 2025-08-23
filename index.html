@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Seed Syfr — Single File (Offline)</title>
+  <title>Seed Syfr</title>
 
   <!-- PWA -->
   <link rel="icon" type="image/png" sizes="32x32" href="/seed-syfr/icon-32x32.png">
@@ -26,6 +26,14 @@
   ">
 
   <style>
+    .step-label {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Courier New', monospace;
+}
+
     .safety-warning{ width:50%; margin:0 auto; padding:12px 16px; background:#fff7ed; border:1px solid #f97316; border-radius:6px; font-family:'Courier New', monospace; font-size:14px; color:#7c2d12 }
     :root{ --line:#111; --green:#22c55e }
     *{ box-sizing:border-box }
@@ -74,7 +82,7 @@
       <div id="net" class="net">Offline</div>
     </div>
 
-    <label>Mode</label>
+    <label>Step 2: Choose the Mode</label>
     <div class="mode-row">
       <button id="encBtn" class="mode-btn">Encrypt</button>
       <button id="decBtn" class="mode-btn">Decrypt</button>
@@ -82,22 +90,29 @@
 
     <!-- Keyword only -->
     <div style="margin-top:10px">
-      <label for="keyword">Keyword</label>
+      <label for="keyword">Step 3: Create A keyword (no spaces, ideally more than 3-4 letters)</label>
       <input id="keyword" type="text" placeholder="e.g., FISH">
     </div>
 
     <div class="io-grid">
       <div>
-        <label for="inText">Input Text</label>
+        <label for="inText">Enter Seed Phrases,Passwords, etc to be Encrypted (in required order)</label>
         <textarea id="inText" placeholder="The Safe, Simple, Stress-free Way"></textarea>
       </div>
       <div>
-        <label for="outText">Output Text</label>
+        <label for="outText">Step 5: Copy Encrypted Information To Store Elsewhere</label>
        <textarea id="outText" readonly placeholder="To Secure Your Seed Phrases, Passwords & Other Sensitive Text"></textarea>
       </div>
     </div>
   </div>
 </div>
+
+  <div>
+  <label for="inText">Step 6: Delete All Seed phrases, Passwords, etc before reconnecting to the internet</label>
+</div>
+
+
+  
 
 <!-- Safety warning ABOVE Quick Start -->
 <div align="center" class="safety-warning">
