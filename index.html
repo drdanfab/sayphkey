@@ -68,23 +68,49 @@ textarea::placeholder {
   margin-bottom:6px;          /* tiny breathing room under the logo row */
 }
 
-/* Wordmark */
-.logo-wrap {
-  font-family: Arial, sans-serif;
-  font-size: 28px;
-  font-weight: 800;  /* make both bold */
-  text-align: center;
+/* Replace your current wordmark styles with these */
+.logo-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  /* Heavier, SVG-like system fonts */
+  font-family: "Arial Black", Impact, "Segoe UI Black", Arial, Helvetica, sans-serif;
+  font-size:28px;
+  font-weight:900;            /* very bold */
+  line-height:1;
+  letter-spacing:.2px;        /* slight tracking for the blocky feel */
+  text-rendering:optimizeLegibility;
 }
 
-.logo-sayph {
+/* Color split stays the same; small fine-tuning per word */
+.logo-sayph{
   color: var(--green);
-  font-weight: 800;   /* extra bold for Sayph */
+  letter-spacing:.1px;        /* tiny loosen for green word */
+}
+.logo-key{
+  color:#111;
+  letter-spacing:-.05px;      /* tiny tighten for the black word */
 }
 
-.logo-key {
-  color: #111;
-  font-weight: 800;   /* extra bold for Key */
+/* Optional: subtle “thicken” on non‑WebKit browsers */
+@supports not (-webkit-text-stroke: 1px black) {
+  .logo-wrap{
+    text-shadow:
+      0 0 0 currentColor,      /* crisp edge */
+      .3px 0 0 currentColor,   /* pseudo-stroke */
+      -.3px 0 0 currentColor,
+      0 .3px 0 currentColor,
+      0 -.3px 0 currentColor;
+  }
 }
+
+/* Optional (WebKit): micro stroke to densify edges without growing size) */
+@supports (-webkit-text-stroke: .25px #111) {
+  .logo-key{ -webkit-text-stroke: .25px #111; }
+  .logo-sayph{ -webkit-text-stroke: .25px #14532d; } /* darker green edge */
+}
+
 
 
 /* Online/Offline pill (keep it green) */
