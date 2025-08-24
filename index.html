@@ -26,6 +26,23 @@
   ">
 
   <style>
+    .faq-list details{
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:10px 14px;
+  margin:10px 0;
+  background:#fff;
+}
+.faq-list summary{
+  cursor:pointer;
+  list-style:none;
+  font-family:'Courier New', monospace;
+}
+.faq-list summary::-webkit-details-marker{ display:none; }
+.faq-list summary:after{ content:"⌄"; float:right; }
+.faq-list details[open] summary:after{ content:"⌃"; }
+.faq-list p{ margin:.6rem 0 0; line-height:1.5; }
+
     input::placeholder,
 textarea::placeholder {
   color: #111;             /* gray */
@@ -192,20 +209,85 @@ textarea::placeholder {
   </div>
 </div>
 
-<!-- Collapsible Quick Start Section -->
-<div align="center" class="quickstart">
-  <button class="toggle-btn" onclick="toggleQuickstart()">Quick Start Steps</button>
-  <div id="quickstartContent" class="qs-content">
-    <h3>Quick Start Steps</h3>
-    <ol>
-      <li>Open this page once while online (to cache).</li>
-      <li>Add to Home Screen (Safari iOS / Chrome Android).</li>
-      <li>Disconnect from the internet.</li>
-      <li>Choose Encrypt or Decrypt, set a Keyword, type in the Input box — output updates automatically.</li>
-    </ol>
-    <p class="important">Erase decrypted text before reconnecting to the internet.</p>
-  </div>
-</div>
+<section class="faq-list" style="max-width:900px;margin:16px auto;">
+  <h3 style="text-align:center;margin:0 0 10px;">FAQs</h3>
+
+  <details>
+    <summary><strong>How much does it cost to use SayphKey?</strong></summary>
+    <p>Nothing. Zero. It’s 100% free, always.</p>
+  </details>
+
+  <details>
+    <summary><strong>Are my seed phrases or passwords ever exposed online?</strong></summary>
+    <p>Nope. SayphKey is designed to work offline. Once cached, you can disconnect from the internet, use it safely, then delete your text before going back online. Nothing ever leaves your device.</p>
+  </details>
+
+  <details>
+    <summary><strong>How do I know the encryption worked?</strong></summary>
+    <p>Flip to <em>Decrypt</em> mode, paste your encrypted text back in, and your original text appears. Instant check.</p>
+  </details>
+
+  <details>
+    <summary><strong>Can I trust this software?</strong></summary>
+    <p>Yes. The code is open on GitHub for anyone to review. SayphKey never stores or sends your data anywhere — everything happens locally on your device.</p>
+  </details>
+
+  <details>
+    <summary><strong>What if I can’t access SayphKey but need to decrypt?</strong></summary>
+    <p>Rebuild the cipher: write your keyword at the start of the alphabet, then add the unused letters after it. Match each encrypted letter back to the standard alphabet — your words will return.</p>
+  </details>
+
+  <details>
+    <summary><strong>Why did you create SayphKey?</strong></summary>
+    <p>I wanted a stress-free way to secure my own seed phrases. Metal plates, splitting words, and third parties all felt clunky. SayphKey is the simple offline alternative I wished existed.</p>
+  </details>
+
+  <details>
+    <summary><strong>Does SayphKey work on mobile and desktop?</strong></summary>
+    <p>Yes. SayphKey works in any modern browser on desktop or mobile. On mobile, you can “Add to Home Screen” for a full-screen app experience, even offline.</p>
+  </details>
+
+  <details>
+    <summary><strong>What happens if I lose my keyword?</strong></summary>
+    <p>Without your keyword, you cannot decrypt your encrypted text. Always store your keyword separately and securely.</p>
+  </details>
+
+  <details>
+    <summary><strong>Is SayphKey a replacement for hardware wallets or other security methods?</strong></summary>
+    <p>No. SayphKey is a complementary tool. You can still combine it with hardware wallets, metal backups, or multisig for extra protection.</p>
+  </details>
+
+  <details>
+    <summary><strong>How do I add SayphKey to my phone like an app?</strong></summary>
+    <p>Use “Add to Home Screen” (Safari on iOS, Chrome on Android). The icon shows up like any other app.</p>
+  </details>
+
+  <details>
+    <summary><strong>How do I make sure I have the latest version?</strong></summary>
+    <p>Refresh once while online. SayphKey updates in the background and is ready for offline again within ~30 seconds.</p>
+  </details>
+
+  <details>
+    <summary><strong>Can I use numbers or symbols like $, #, @?</strong></summary>
+    <p>SayphKey works with A–Z (same as BIP‑39). You can add numbers/symbols yourself after encryption for extra layers.</p>
+  </details>
+
+  <details>
+    <summary><strong>Who controls my data?</strong></summary>
+    <p>You do. 100%. SayphKey never sees, stores, or transmits your information.</p>
+  </details>
+
+  <details>
+    <summary><strong>Can I share SayphKey with others?</strong></summary>
+    <p>Absolutely. It’s meant to be shared — the more people who use it, the safer everyone’s information becomes.</p>
+  </details>
+
+  <details>
+    <summary><strong>What makes SayphKey different?</strong></summary>
+    <p>It’s lightweight, offline‑first, and open‑source. No accounts, no servers — just a simple, secure way to protect sensitive information.</p>
+  </details>
+</section>
+
 
 <footer>
   SayphKey · v0.1.0 · <span id="netStatus">Offline</span><br>
