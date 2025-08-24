@@ -27,29 +27,29 @@
 
   <style>
     .faq-list details{
-      border:1px solid #ddd;
-      border-radius:8px;
-      padding:10px 14px;
-      margin:10px 0;
-      background:#fff;
-    }
-    .faq-list summary{
-      cursor:pointer;
-      list-style:none;
-      font-family:'Courier New', monospace;
-    }
-    .faq-list summary::-webkit-details-marker{ display:none; }
-    .faq-list summary:after{ content:"⌄"; float:right; }
-    .faq-list details[open] summary:after{ content:"⌃"; }
-    .faq-list p{ margin:.6rem 0 0; line-height:1.5; }
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:10px 14px;
+  margin:10px 0;
+  background:#fff;
+}
+.faq-list summary{
+  cursor:pointer;
+  list-style:none;
+  font-family:'Courier New', monospace;
+}
+.faq-list summary::-webkit-details-marker{ display:none; }
+.faq-list summary:after{ content:"⌄"; float:right; }
+.faq-list details[open] summary:after{ content:"⌃"; }
+.faq-list p{ margin:.6rem 0 0; line-height:1.5; }
 
     input::placeholder,
-    textarea::placeholder {
-      color:#111;
-      font-family: Arial, sans-serif;
-      font-size: 13px;
-      opacity: 1;
-    }
+textarea::placeholder {
+  color: #111;             /* gray */
+  font-style: Arial, sans-serif;
+  font-size: 13px;         /* smaller */
+  opacity: 1;              /* ensure full visibility */
+}
 
     :root{ --line:#111; --green:#22c55e }
     *{ box-sizing:border-box }
@@ -57,62 +57,101 @@
     .wrap{ max-width:900px; margin:24px auto; padding:20px }
     .card{ background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; box-shadow:0 1px 2px rgba(0,0,0,.04) }
 
-    /* Center the logo row */
-    .header{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      position:relative;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom:6px;
-    }
-    .logo-wrap img{
-      display:block;
-      max-width:280px;
-      height:auto;
-      margin:0 auto;
-    }
+  /* Center the logo row */
+.header{
+  display:flex;
+  justify-content:center;     /* center the logo */
+  align-items:center;
+  position:relative;          /* so the pill can pin to the right */
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:6px;          /* tiny breathing room under the logo row */
+}
 
-    /* Online/Offline pill */
-    .net{
-      position:absolute;
-      right:0;
-      top:50%;
-      transform:translateY(-50%);
-      font-size:12px;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid #2e6f2e;
-      background:#2e6f2e;
-      color:#fff;
-      font-family:"Courier New", monospace;
-    }
+/* Wordmark */
+.logo-wrap {
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;  /* make both bold */
+  text-align: center;
+}
 
-    .tagline{
-      text-align:center;
-      margin:10px 0 18px;
-      font-style:italic;
-      font-size:14px;
-      color:#444;
-    }
+.logo-sayph {
+  color: var(--green);
+  font-weight: 800;   /* extra bold for Sayph */
+}
+
+.logo-key {
+  color: #111;
+  font-weight: 800;   /* extra bold for Key */
+}
+
+
+/* Online/Offline pill (keep it green) */
+.net{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:12px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid #2e6f2e;
+  background:#2e6f2e;
+  color:#fff;
+  font-family:"Courier New", monospace;
+}
+
+/* Tagline (center + spacing before Step 1) */
+.tagline{
+  text-align:center;
+  margin:10px 0 18px;         /* <— adds space before Step 1 */
+  font-style:italic;
+  font-size:14px;
+  color:#444;
+}
 
     label{ font-weight:700; margin-top:10px; display:block; color:#5b6d55; font-family:'Courier New', monospace }
     input,textarea{ width:100%; padding:8px; border:2px solid var(--line); border-radius:4px; font:14px 'Courier New', monospace }
     textarea{ min-height:150px; resize:vertical }
 
-    .mode-row{ display:flex; gap:16px; margin-top:6px; flex-wrap:wrap; justify-content:center }
-    .mode-btn{
-      padding:16px 22px; border-radius:12px; border:2px solid #111; background:#fff; color:#111;
-      box-shadow:0 2px 0 rgba(0,0,0,0.08); cursor:pointer; font-weight:600; font-family:"Courier New", Courier, monospace;
-      min-width:120px; text-align:center
+    .mode-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-    .mode-btn.active{ background:var(--green); color:#111; border-color:#14532d }
+    .mode-btn {
+      padding: 16px 22px;
+      border-radius: 12px;
+      border: 2px solid #111;
+      background: #fff;
+      color: #111;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+      cursor: pointer;
+      font-weight: 600;
+      font-family: "Courier New", Courier, monospace;
+      min-width: 120px;
+      text-align: center;
+    }
+    .mode-btn.active {
+      background: var(--green);
+      color: #111;
+      border-color: #14532d;
+    }
 
     .io-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px }
     @media (max-width:700px){ .io-grid{ grid-template-columns:1fr } }
 
-    .center-line{ text-align:center; margin-top:8px; font-size:14px; font-weight:bold; color:#5b6d55; font-family:'Courier New', monospace }
+    .center-line { text-align: center; margin-top: 8px; font-size: 14px; font-weight: bold; color: #5b6d55; font-family: 'Courier New', monospace }
+
+    /* Quick Start (collapsible) */
+    .quickstart{ margin:16px auto 0; max-width:900px }
+    .quickstart .toggle-btn{ background:var(--green); color:#111; font-family:'Courier New', monospace; font-weight:250; padding:8px 14px; border:2px solid #14532d; border-radius:8px; cursor:pointer; box-shadow:0 1px 0 rgba(0,0,0,.06) }
+    .qs-content{ display:none; margin-top:12px; padding:16px 20px; background:#f9fafb; border:1px solid #ddd; border-radius:8px; font-family:'Courier New', monospace; font-size:14px; line-height:1.5 }
+    .qs-content h3{ margin:0 0 8px; font-size:18px; color:#111 }
+    .qs-content .important{ color:#b91c1c; font-weight:700 }
 
     footer{ margin:18px auto 8px; max-width:900px; color:#64748b; font:12px 'Courier New', monospace; text-align:center }
     footer .muted{ opacity:.9 }
@@ -123,7 +162,7 @@
   <div class="card">
     <div class="header">
       <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
-        <img src="sayphkey-logo.svg" alt="SayphKey Logo">
+        <span class="logo-sayph">Sayph</span><span class="logo-key">Key</span>
       </div>
       <div id="net" class="net">Offline</div>
     </div>
@@ -172,8 +211,84 @@
 
 <section class="faq-list" style="max-width:900px;margin:16px auto;">
   <h3 style="text-align:center;margin:0 0 10px;">FAQs</h3>
-  <!-- … your FAQ items unchanged … -->
+
+  <details>
+    <summary><strong>How much does it cost to use SayphKey?</strong></summary>
+    <p>Nothing. Zero. It’s 100% free, always.</p>
+  </details>
+
+  <details>
+    <summary><strong>Are my seed phrases or passwords ever exposed online?</strong></summary>
+    <p>Nope. SayphKey is designed to work offline. Once cached, you can disconnect from the internet, use it safely, then delete your text before going back online. Nothing ever leaves your device.</p>
+  </details>
+
+  <details>
+    <summary><strong>How do I know the encryption worked?</strong></summary>
+    <p>Flip to <em>Decrypt</em> mode, paste your encrypted text back in, and your original text appears. Instant check.</p>
+  </details>
+
+  <details>
+    <summary><strong>Can I trust this software?</strong></summary>
+    <p>Yes. The code is open on GitHub for anyone to review. SayphKey never stores or sends your data anywhere — everything happens locally on your device.</p>
+  </details>
+
+  <details>
+    <summary><strong>What if I can’t access SayphKey but need to decrypt?</strong></summary>
+    <p>If you ever need to decrypt without SayphKey, you can rebuild your cipher alphabet manually: take your keyword, place it at the start of the alphabet, then follow with the remaining unused letters. Pair this new alphabet with the standard A–Z to decrypt your text. Example: keyword COMPUTER produces COMPUTERABDFGHIJKLNQSVWXYZ. With that, you can map encrypted letters back to the original.
+(You don’t lose the detail, but it’s easier to digest.)</p>
+  </details>
+
+  <details>
+    <summary><strong>Why did you create SayphKey?</strong></summary>
+    <p>I wanted a stress-free way to secure my own seed phrases. Metal plates, splitting words, and third parties all felt clunky. SayphKey is the simple offline alternative I wished existed.</p>
+  </details>
+
+  <details>
+    <summary><strong>Does SayphKey work on mobile and desktop?</strong></summary>
+    <p>Yes. SayphKey works in any modern browser on desktop or mobile. On mobile, you can “Add to Home Screen” for a full-screen app experience, even offline.</p>
+  </details>
+
+  <details>
+    <summary><strong>What happens if I lose my keyword?</strong></summary>
+    <p>Without your keyword, you cannot decrypt your encrypted text. Always store your keyword separately and securely.</p>
+  </details>
+
+  <details>
+    <summary><strong>Is SayphKey a replacement for hardware wallets or other security methods?</strong></summary>
+    <p>No. SayphKey is a complementary tool. You can still combine it with hardware wallets, metal backups, or multisig for extra protection.</p>
+  </details>
+
+  <details>
+    <summary><strong>How do I add SayphKey to my phone like an app?</strong></summary>
+    <p>Use “Add to Home Screen” (Safari on iOS, Chrome on Android). The icon shows up like any other app.</p>
+  </details>
+
+  <details>
+    <summary><strong>How do I make sure I have the latest version?</strong></summary>
+    <p>Refresh once while online. SayphKey updates in the background and is ready for offline again within ~30 seconds.</p>
+  </details>
+
+  <details>
+    <summary><strong>Can I use numbers or symbols like $, #, @?</strong></summary>
+    <p>SayphKey works with A–Z (same as BIP‑39). You can add numbers/symbols yourself after encryption for extra layers.</p>
+  </details>
+
+  <details>
+    <summary><strong>Who controls my data?</strong></summary>
+    <p>You do. 100%. SayphKey never sees, stores, or transmits your information.</p>
+  </details>
+
+  <details>
+    <summary><strong>Can I share SayphKey with others?</strong></summary>
+    <p>Absolutely. It’s meant to be shared — the more people who use it, the safer everyone’s information becomes.</p>
+  </details>
+
+  <details>
+    <summary><strong>What makes SayphKey different?</strong></summary>
+    <p>It’s lightweight, offline‑first, and open‑source. No accounts, no servers — just a simple, secure way to protect sensitive information.</p>
+  </details>
 </section>
+
 
 <footer>
   SayphKey · v0.1.0 · <span id="netStatus">Offline</span><br>
@@ -201,6 +316,7 @@
   }
 
   var ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
   var els = {
     keyword: document.getElementById('keyword'),
     inText: document.getElementById('inText'),
@@ -275,6 +391,12 @@
 
   scheduleRun();
 })();
+
+function toggleQuickstart(){
+  var qs = document.getElementById('quickstartContent');
+  if (!qs) return;
+  qs.style.display = (qs.style.display === 'block') ? 'none' : 'block';
+}
 </script>
 
 <!-- Service Worker registration -->
@@ -286,5 +408,6 @@
 </script>
 </body>
 </html>
+
 
 
