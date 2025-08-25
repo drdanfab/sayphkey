@@ -68,31 +68,16 @@ textarea::placeholder {
   margin-bottom:6px;          /* tiny breathing room under the logo row */
 }
 
-/* Replace your current wordmark styles with these */
-.logo-wrap{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  /* Heavier, SVG-like system fonts */
+.logo-wrap {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-weight: 700; /* Bold */
-
-  font-size:28px;
-  font-weight:900;            /* very bold */
-  line-height:1;
-  letter-spacing:.2px;        /* slight tracking for the blocky feel */
-  text-rendering:optimizeLegibility;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--green);   /* Sayph = green */
+  text-align: center;
 }
 
-/* Color split stays the same; small fine-tuning per word */
-.logo-sayph{
-  color: var(--green);
-  letter-spacing:.1px;        /* tiny loosen for green word */
-}
-.logo-key{
-  color:#111;
-  letter-spacing:-.05px;      /* tiny tighten for the black word */
+.logo-key {
+  color: #111;           /* Key = black */
 }
 
 /* Optional: subtle “thicken” on non‑WebKit browsers */
@@ -189,9 +174,9 @@ font-weight: 700; /* Bold */
 <div class="wrap">
   <div class="card">
     <div class="header">
-      <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
-        <span class="logo-sayph">Sayph</span><span class="logo-key">Key</span>
-      </div>
+     <div class="logo-wrap" id="logoSlot" aria-label="SayphKey">
+        Sayph<span class="logo-key">Key</span>
+    </div>
       <div id="net" class="net">Offline</div>
     </div>
 
