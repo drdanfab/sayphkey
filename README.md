@@ -7,7 +7,7 @@ For Your Seed Phrases & Passwords**
 
 ---
 
-👉 Try it here: [Launch SayphKey]([https://drdanfab.github.io/sayphkey/]))
+👉 Try it here: [Launch SayphKey](https://drdanfab.github.io/sayphkey/)
 
 
 
